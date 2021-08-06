@@ -6,8 +6,10 @@ BoldText=$(tput bold)
 NormalText=$(tput sgr0)
 
 function build-package () {
+  echo "nside build"
   local BUILD_TYPE="$1"
-
+  echo "$DEV_MODE"
+  echo "$$$$"
   if [ -n "$DEV_MODE" ] ; then
     npm run test
     npm run lint
@@ -349,6 +351,8 @@ EOF
 function update-stacks () {
 
   local UPDATE_RELEASE_VERSION="$1"
+  echo "deepthi"
+  echo $UPDATE_RELEASE_VERSION
   local TEMP_DIR
   TEMP_DIR=$(mktemp -d)
 
@@ -443,7 +447,6 @@ EOF
   wait-for-stack 'Main' "$MAIN_STACK_NAME" "$MAIN_STACK_AWS_REGION"
 
   ACTIVE_REGIONS=$(aws ec2 describe-regions $AWS_CREDENTIALS --region "$MAIN_STACK_AWS_REGION" | jq -r '.Regions[].RegionName')
-
   for REGION in $ACTIVE_REGIONS ; do
 
     echo "Updating the Collector CloudFormation Stack in $REGION..."
@@ -743,7 +746,7 @@ EOF
 fi
 
 MIN_BASH_VERSION='4'
-REPO_NAME='deepthi-wilson/auto-tag'
+REPO_NAME='GorillaStack/auto-tag'
 MAIN_STACK_NAME='AutoTag'
 COLLECTOR_STACK_NAME="${MAIN_STACK_NAME}-Collector"
 
